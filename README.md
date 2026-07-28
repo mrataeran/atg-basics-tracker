@@ -1,46 +1,51 @@
 # ATG Basics Tracker
 
-A single-file, offline-friendly web app for running the ATG Basics routine.
+A mobile-first, installable web app for running the ATG Basics routine.
 
 **Live:** https://mrataeran.github.io/atg-basics-tracker/
 
-## What it does
+## Features
 
-- Three workout days: Lower Body (Mon), Upper Body (Wed), Spine (Fri)
-- Per-set logging of weight and reps, with completion checkmarks
-- Tempo prescriptions expanded into plain English (e.g. 41X1)
-- Built-in rest timer (60s / 90s / 2m) that auto-starts when a set is checked
+- Three workout days (Lower Mon, Upper Wed, Spine Fri) plus a session log
+- Per-set weight and rep logging with completion circles and a progress bar
+- Tempo prescriptions expanded into plain English (41X1, 4010, 5010, 31X1)
+- Rest timer with beep and vibration, auto-started when a set is checked
 - Per-exercise scratch notes
-- Session history: press Finish to archive a workout and reset the checkmarks
-- Video slot per exercise, with an HLS (.m3u8) capable player via hls.js
-- A YouTube search link per exercise as a fallback tutorial
+- Encrypted video vault, plus a YouTube search link per exercise as a fallback
+- Installs to the home screen and works offline (manifest + service worker)
 
-## Privacy / data
+## The video vault
 
-Everything lives in your browser's localStorage under the key `atgb.v1`.
-Nothing is uploaded, and no accounts or servers are involved.
-No third-party video content is bundled in this repository.
+Exercise video links are **not** stored in the clear. They are encrypted with
+AES-256-GCM using a key derived from your passphrase with PBKDF2-SHA256
+(310,000 iterations) and committed as `vault.json`.
 
-## Adding your own video links
+Anyone can download `vault.json`, but without the passphrase it is just noise.
+On first load the app shows a lock screen; enter the passphrase once per device
+and tick *Remember on this device* to decrypt the links into localStorage.
+You can re-lock (and wipe the decrypted links) with the padlock icon in the header.
 
-Open an exercise, tap **+ Add video link**, and paste a URL (`.m3u8`, `.mp4`, or any direct video link).
-Links are keyed by exercise name and are stored only on that device.
+Everything is done in the browser with the Web Crypto API. No server, no account,
+no key is ever transmitted.
 
-To load many at once, tap the gear icon and paste a JSON map, then press **Import / merge**:
+### Changing the passphrase or the links
 
-```json
-{
-  "ATG Row": "https://example.com/atg-row.m3u8",
-  "Pancake": "https://example.com/pancake.mp4"
-}
-```
+1. Open the app and unlock it.
+2. Tap the gear icon. The current links appear as editable JSON.
+3. Enter a new passphrase twice and press **Encrypt into vault.json**.
+4. Press **Copy vault** (or **Download vault.json**).
+5. Replace `vault.json` in this repo with the new blob and commit.
 
-The gear menu also exports your full dataset as JSON so you can move it between devices.
+Every device then needs the new passphrase.
+
+## Privacy
+
+Sets, notes and history live in localStorage under `atgb.v1` and never leave the device.
+The gear menu can export and import that blob if you want to move it between devices.
 
 ## Install on a phone
 
-Open the live URL, then use Share -> Add to Home Screen (iOS) or the install prompt (Android).
-It runs full screen like a native app.
+Open the live URL, then Share -> Add to Home Screen (iOS) or the install prompt (Android).
 
 ## Editing the routine
 
