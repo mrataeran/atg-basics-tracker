@@ -5,83 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0f14">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ATG Basics">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>ATG Basics Tracker</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23ff5a1f'/><text x='50' y='68' font-size='54' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23fff'>A</text></svg>">
+<link rel="manifest" href="manifest.json">
+<title>ATG Basics</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff5a1f'/><text x='50' y='70' font-size='58' font-family='Helvetica,Arial' font-weight='bold' text-anchor='middle' fill='%23fff'>A</text></svg>">
 <style>
-:root{--bg:#0b0f14;--card:#141b23;--card2:#1c2630;--line:#26323f;--tx:#e6edf3;--mut:#8b98a5;--acc:#ff5a1f;--ok:#2ea043}
+:root{--bg:#0b0f14;--card:#141b23;--card2:#1c2630;--line:#26323f;--tx:#e6edf3;--mut:#8b98a5;--acc:#ff5a1f;--ok:#2ea043;--sat:env(safe-area-inset-top);--sab:env(safe-area-inset-bottom)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:110px}
-.wrap{max-width:740px;margin:0 auto;padding:0 14px}
-header{position:sticky;top:0;z-index:30;background:rgba(11,15,20,.94);backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;padding:14px 0 2px}
-.brand h1{font-size:19px;margin:0;letter-spacing:.16em;font-weight:800}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:calc(104px + var(--sab));overscroll-behavior-y:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 13px}
+button,input,textarea{font-family:inherit}
+header{position:sticky;top:0;z-index:30;background:rgba(11,15,20,.94);-webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);border-bottom:1px solid var(--line);padding-top:var(--sat)}
+.brand{display:flex;align-items:center;gap:9px;padding:12px 0 2px}
+.brand h1{font-size:17px;margin:0;letter-spacing:.16em;font-weight:800;flex:1}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc)}
-.brand .gear{margin-left:auto;background:none;border:0;color:var(--mut);font-size:18px;cursor:pointer;padding:4px 6px}
-.sub{color:var(--mut);font-size:11.5px;letter-spacing:.04em;margin-bottom:10px}
-.tabs{display:flex;gap:7px;padding-bottom:11px}
-.tab{flex:1;white-space:nowrap;padding:9px 6px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-size:12.5px;font-weight:700;cursor:pointer;transition:.15s}
+.ic{width:38px;height:38px;border:0;background:none;color:var(--mut);font-size:17px;cursor:pointer;border-radius:10px}
+.ic:active{background:var(--card2)}
+.ic.on{color:var(--acc)}
+.sub{color:var(--mut);font-size:11.5px;margin-bottom:9px}
+.tabs{display:flex;gap:6px;padding-bottom:10px}
+.tab{flex:1;min-width:0;padding:9px 4px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-size:13px;font-weight:700;cursor:pointer;line-height:1.2}
 .tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
-.tab small{display:block;font-weight:500;font-size:10px;opacity:.75}
+.tab small{display:block;font-weight:500;font-size:9.5px;opacity:.8;margin-top:2px}
 .bar{height:3px;background:var(--card2)}
 .bar>i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
-h2.dayt{font-size:15px;margin:16px 0 2px;font-weight:700}
-.dayt span{color:var(--mut);font-weight:500}
-.hint{color:var(--mut);font-size:12px;margin:2px 0 6px}
-.ex{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:11px 0;overflow:hidden}
+h2.dayt{font-size:15px;margin:15px 0 2px;font-weight:700}
+h2.dayt span{color:var(--mut);font-weight:500}
+.hint{color:var(--mut);font-size:12px;margin:2px 0 4px;line-height:1.4}
+.ex{background:var(--card);border:1px solid var(--line);border-radius:15px;margin:10px 0;overflow:hidden}
 .ex.done{border-color:#1d4a2b}
-.exh{display:flex;gap:12px;padding:13px 14px;align-items:flex-start;cursor:pointer}
-.num{flex:0 0 26px;height:26px;border-radius:8px;background:var(--card2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mut);font-weight:700;margin-top:2px}
+.exh{display:flex;gap:11px;padding:14px 13px;align-items:flex-start;cursor:pointer;user-select:none}
+.num{flex:0 0 27px;height:27px;border-radius:9px;background:var(--card2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mut);font-weight:700;margin-top:1px}
 .ex.done .num{background:var(--ok);border-color:var(--ok);color:#fff}
 .meta{flex:1;min-width:0}
 .name{font-weight:650;font-size:15.5px;line-height:1.25}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .chip{font-size:11px;padding:3px 8px;border-radius:99px;background:var(--card2);color:var(--mut);border:1px solid var(--line);white-space:nowrap}
 .chip.t{color:#ffb08a;border-color:#4a2a1a;background:#241610}
 .chip.n{color:#9ecbff;border-color:#1c3a5e;background:#101e2e}
-.caret{color:var(--mut);font-size:12px;margin-top:6px;transition:.2s}
+.chip.l{color:#b9a0ff;border-color:#332a5e;background:#171230}
+.caret{color:var(--mut);font-size:11px;margin-top:7px;transition:.2s}
 .ex.open .caret{transform:rotate(180deg)}
-.body{display:none;padding:0 14px 14px}
+.body{display:none;padding:0 13px 14px}
 .ex.open .body{display:block}
-.note{font-size:12.5px;color:var(--mut);background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:8px;padding:8px 10px;margin-bottom:10px}
-.setrow{display:flex;align-items:center;gap:8px;margin-top:8px}
-.slab{flex:0 0 40px;font-size:11px;color:var(--mut);font-weight:700;letter-spacing:.05em}
-.fld{flex:1;position:relative}
-.fld input{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:9px;color:var(--tx);padding:9px 10px 9px 10px;font-size:14px;outline:none}
+.note{font-size:12.5px;color:var(--mut);background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:9px;padding:8px 10px;margin-bottom:9px}
+.setrow{display:flex;align-items:center;gap:7px;margin-top:8px}
+.slab{flex:0 0 38px;font-size:10.5px;color:var(--mut);font-weight:700;letter-spacing:.04em}
+.fld{flex:1;min-width:0;position:relative}
+.fld input{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--tx);padding:11px 40px 11px 11px;font-size:16px;outline:none}
 .fld input:focus{border-color:var(--acc)}
-.fld u{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--mut);text-decoration:none}
-.chk{flex:0 0 38px;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:transparent;color:transparent;cursor:pointer;font-size:15px;font-weight:700;line-height:1}
+.fld u{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:9.5px;color:var(--mut);text-decoration:none;letter-spacing:.05em}
+.chk{flex:0 0 44px;width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:transparent;color:transparent;cursor:pointer;font-size:16px;font-weight:700;line-height:1}
 .chk.on{background:var(--ok);border-color:var(--ok);color:#fff}
-.acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.btn{flex:1;min-width:120px;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.acts{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+.btn{flex:1 1 45%;text-align:center;padding:12px 8px;border-radius:11px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:block}
 .btn.p{background:var(--acc);border-color:var(--acc);color:#fff}
 .btn.g{background:transparent;color:var(--mut)}
-textarea.jn{width:100%;margin-top:10px;background:var(--card2);border:1px solid var(--line);border-radius:9px;color:var(--tx);padding:9px;font-size:13px;min-height:56px;outline:none;resize:vertical;font-family:inherit}
-.footbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(11,15,20,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:9px 0 calc(9px + env(safe-area-inset-bottom))}
-.fb{display:flex;gap:8px;align-items:center}
-.timer{flex:0 0 auto;font-variant-numeric:tabular-nums;font-size:22px;font-weight:800;min-width:74px;text-align:center;color:var(--acc)}
-.tbtn{padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:12.5px;font-weight:700;cursor:pointer}
-dialog{border:0;padding:0;background:transparent;max-width:96vw;width:720px}
-dialog::backdrop{background:rgba(0,0,0,.72)}
-.modal{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.btn.w{flex-basis:100%}
+textarea.jn{width:100%;margin-top:10px;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--tx);padding:10px;font-size:15px;min-height:60px;outline:none;resize:vertical;font-family:inherit}
+.footbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(11,15,20,.97);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 0 calc(8px + var(--sab))}
+.fb{display:flex;gap:6px;align-items:center}
+.timer{flex:0 0 auto;font-variant-numeric:tabular-nums;font-size:21px;font-weight:800;min-width:62px;text-align:center;color:var(--acc)}
+.tbtn{padding:10px 9px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--tx);font-size:12.5px;font-weight:700;cursor:pointer}
+dialog{border:0;padding:0;background:transparent;max-width:94vw;width:700px;color:var(--tx)}
+dialog::backdrop{background:rgba(0,0,0,.78)}
+.modal{background:var(--card);border:1px solid var(--line);border-radius:15px;overflow:hidden}
 .mh{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line)}
-.mh b{flex:1;font-size:14px}
-.mh button{background:none;border:0;color:var(--mut);font-size:20px;cursor:pointer}
-.mb{padding:14px}
-video{width:100%;display:block;background:#000;border-radius:10px}
-.logrow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.mh b{flex:1;font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mh button{background:none;border:0;color:var(--mut);font-size:22px;cursor:pointer;line-height:1}
+.mb{padding:14px;max-height:76vh;overflow:auto}
+video{width:100%;display:block;background:#000;border-radius:11px}
+.logrow{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px;margin:9px 0}
 .logrow b{font-size:14px}
 .logrow div{color:var(--mut);font-size:12.5px;margin-top:4px}
-.empty{color:var(--mut);text-align:center;padding:40px 10px;font-size:14px}
-code{background:var(--card2);padding:1px 5px;border-radius:5px;font-size:12px}
+.empty{color:var(--mut);text-align:center;padding:44px 12px;font-size:14px;line-height:1.6}
+code{background:var(--card2);padding:1px 5px;border-radius:5px;font-size:12px;word-break:break-all}
+label.lb{display:block;font-size:11.5px;color:var(--mut);font-weight:700;letter-spacing:.05em;margin:12px 0 5px}
+input.tf{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--tx);padding:12px;font-size:16px;outline:none}
+input.tf:focus{border-color:var(--acc)}
+.lock{position:fixed;inset:0;z-index:60;background:var(--bg);display:none;align-items:center;justify-content:center;padding:24px}
+.lock.show{display:flex}
+.lockbox{width:100%;max-width:380px;text-align:center}
+.lockbox .big{font-size:44px;margin-bottom:6px}
+.lockbox h3{margin:0 0 6px;font-size:19px;letter-spacing:.08em}
+.lockbox p{color:var(--mut);font-size:13px;margin:0 0 18px;line-height:1.5}
+.err{color:#ff7b72;font-size:12.5px;min-height:17px;margin-top:8px}
+@media (min-width:620px){.btn{flex:1 1 0}.tab{font-size:14px}}
 </style>
 </head>
 <body>
+<div class="lock" id="lock"><div class="lockbox">
+  <div class="big">&#128274;</div>
+  <h3>ATG BASICS</h3>
+  <p>Your exercise videos are encrypted. Enter your passphrase to unlock them on this device.</p>
+  <input class="tf" id="pw" type="password" autocomplete="current-password" placeholder="Passphrase" enterkeyhint="go">
+  <div style="display:flex;align-items:center;gap:8px;margin-top:12px;justify-content:center;color:var(--mut);font-size:12.5px">
+    <input type="checkbox" id="rem" checked style="width:18px;height:18px;accent-color:var(--acc)"><label for="rem">Remember on this device</label>
+  </div>
+  <div class="err" id="lerr"></div>
+  <div class="acts"><button class="btn p w" id="dounlock">Unlock</button><button class="btn g w" id="skip">Continue without videos</button></div>
+</div></div>
 <header>
   <div class="wrap">
-    <div class="brand"><span class="dot"></span><h1>ATG BASICS</h1><button class="gear" id="gear" title="Settings">&#9881;</button></div>
-    <div class="sub" id="sub">3 sessions per week &middot; personal tracker</div>
+    <div class="brand"><span class="dot"></span><h1>ATG BASICS</h1><button class="ic" id="lockbtn" title="Videos">&#128274;</button><button class="ic" id="gear" title="Settings">&#9881;</button></div>
+    <div class="sub" id="sub">Personal tracker</div>
     <div class="tabs" id="tabs"></div>
   </div>
   <div class="bar"><i id="prog"></i></div>
@@ -93,7 +123,7 @@ code{background:var(--card2);padding:1px 5px;border-radius:5px;font-size:12px}
   <button class="tbtn" data-rest="90">90s</button>
   <button class="tbtn" data-rest="120">2m</button>
   <button class="tbtn" id="tstop">Stop</button>
-  <button class="tbtn" id="finish" style="margin-left:auto;background:var(--acc);border-color:var(--acc)">Finish</button>
+  <button class="tbtn" id="finish" style="margin-left:auto;background:var(--acc);border-color:var(--acc);color:#fff">Finish</button>
 </div></div>
 <dialog id="dlg"><div class="modal">
   <div class="mh"><b id="dtitle"></b><button id="dclose">&times;</button></div>
@@ -126,7 +156,7 @@ var DAYS=[
   {n:"ATG Warm-up",s:1,r:"100 yards forward & backward"},
   {n:"Full Single Leg Calf Raise",s:2,r:"10-20 reps",note:"Bodyweight or loaded"},
   {n:"Back Extension Progression",s:3,r:"10-20 reps"},
-  {n:"ATG Split Squat Progression",s:4,r:"10 per side",t:"31X1",note:"Program list shows 3 sets, exercise page shows 4"},
+  {n:"ATG Split Squat Progression",s:4,r:"10 per side",t:"31X1"},
   {n:"QL Extension",s:2,r:"10 per side"},
   {n:"Hip Flexors",s:2,r:"20 reps"},
   {n:"Internal & External Hip Rotation",s:2,r:"1 min each side"},
@@ -137,98 +167,160 @@ var KEY="atgb.v1",st={};
 try{st=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){st={}}
 st.sets=st.sets||{};st.vid=st.vid||{};st.notes=st.notes||{};st.hist=st.hist||[];st.open=st.open||{};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
-var view=0;
+var VIDS={},VAULT=null,view=0;
 var E=function(s){return document.querySelector(s)};
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+var TE=new TextEncoder(),TD=new TextDecoder();
+function b64e(u){var s="",i;for(i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s)}
+function b64d(b){var s=atob(b),u=new Uint8Array(s.length),i;for(i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u}
+async function dkey(p,salt,it){var km=await crypto.subtle.importKey("raw",TE.encode(p),"PBKDF2",false,["deriveKey"]);
+ return crypto.subtle.deriveKey({name:"PBKDF2",salt:salt,iterations:it,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
+async function encV(obj,p){var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),it=310000;
+ var k=await dkey(p,salt,it);var ct=await crypto.subtle.encrypt({name:"AES-GCM",iv:iv},k,TE.encode(JSON.stringify(obj)));
+ return{v:1,kdf:"PBKDF2-SHA256-AESGCM",it:it,salt:b64e(salt),iv:b64e(iv),ct:b64e(new Uint8Array(ct))}}
+async function decV(v,p){var k=await dkey(p,b64d(v.salt),v.it);var pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64d(v.iv)},k,b64d(v.ct));return JSON.parse(TD.decode(pt))}
 function tt(t){var d=String(t).split("");var u=(d[2]==="X"||d[2]==="x")?"explode up":"lift "+d[2]+"s";return "Tempo "+t+" - lower "+d[0]+"s, pause "+d[1]+"s, "+u+", pause "+d[3]+"s"}
 function sk(a,b,c){return a+"."+b+"."+c}
 function dayStats(i){var t=0,n=0;DAYS[i].ex.forEach(function(x,ei){for(var s=0;s<x.s;s++){t++;var o=st.sets[sk(i,ei,s)];if(o&&o.k)n++}});return{t:t,n:n}}
-function tabs(){var h="";DAYS.forEach(function(D,i){var s=dayStats(i);h+='<button class="tab'+(view===i?" on":"")+'" data-v="'+i+'">'+esc(D.d)+'<small>'+s.n+"/"+s.t+" sets</small></button>"});
-h+='<button class="tab'+(view===3?" on":"")+'" data-v="3">Log<small>'+st.hist.length+" done</small></button>";E("#tabs").innerHTML=h}
+function unlocked(){return Object.keys(VIDS).length>0}
+function tabs(){var h="";DAYS.forEach(function(D,i){var s=dayStats(i);h+='<button class="tab'+(view===i?" on":"")+'" data-v="'+i+'">'+esc(D.d)+"<small>"+s.n+"/"+s.t+"</small></button>"});
+ h+='<button class="tab'+(view===3?" on":"")+'" data-v="3">Log<small>'+st.hist.length+"</small></button>";E("#tabs").innerHTML=h;
+ E("#lockbtn").innerHTML=unlocked()?"&#128275;":"&#128274;";E("#lockbtn").className="ic"+(unlocked()?" on":"")}
 function render(){tabs();
  if(view===3){renderLog();E("#prog").style.width="0%";E("#sub").textContent="Workout history";return}
  var D=DAYS[view],s=dayStats(view);
  E("#prog").style.width=(s.t?Math.round(s.n/s.t*100):0)+"%";
- E("#sub").textContent=D.n+" - "+D.ex.length+" exercises - "+s.n+" of "+s.t+" sets complete";
+ E("#sub").textContent=D.n+" - "+s.n+" of "+s.t+" sets complete";
  var h='<h2 class="dayt">'+esc(D.n)+' <span>&middot; '+esc(D.d)+"</span></h2>";
- h+='<div class="hint">Tap an exercise to log sets, add notes, or open its video.</div>';
+ h+='<div class="hint">Tap an exercise to log sets, add notes or watch the demo.</div>';
  D.ex.forEach(function(x,ei){
-  var done=0;for(var q=0;q<x.s;q++){var oo=st.sets[sk(view,ei,q)];if(oo&&oo.k)done++}
-  var op=st.open[view+"."+ei];
-  var vurl=st.vid[x.n];
+  var done=0,q;for(q=0;q<x.s;q++){var oo=st.sets[sk(view,ei,q)];if(oo&&oo.k)done++}
+  var op=st.open[view+"."+ei],vurl=VIDS[x.n];
   h+='<div class="ex'+(op?" open":"")+(done===x.s?" done":"")+'" data-ei="'+ei+'">';
-  h+='<div class="exh" data-act="tog"><div class="num">'+(done===x.s?"&#10003;":(ei+1))+'</div><div class="meta"><div class="name">'+esc(x.n)+'</div><div class="chips"><span class="chip">'+x.s+" set"+(x.s>1?"s":"")+'</span><span class="chip">'+esc(x.r)+"</span>"+(x.t?'<span class="chip t">'+esc(x.t)+"</span>":"")+(vurl?'<span class="chip n">video</span>':"")+'</div></div><div class="caret">&#9660;</div></div>';
+  h+='<div class="exh" data-act="tog"><div class="num">'+(done===x.s?"&#10003;":(ei+1))+'</div><div class="meta"><div class="name">'+esc(x.n)+'</div><div class="chips"><span class="chip">'+x.s+" set"+(x.s>1?"s":"")+'</span><span class="chip">'+esc(x.r)+"</span>"+(x.t?'<span class="chip t">'+esc(x.t)+"</span>":"")+(vurl?'<span class="chip n">video</span>':(VAULT?'<span class="chip l">locked</span>':""))+'</div></div><div class="caret">&#9660;</div></div>';
   h+='<div class="body">';
   if(x.t)h+='<div class="note">'+esc(tt(x.t))+"</div>";
   if(x.note)h+='<div class="note">'+esc(x.note)+"</div>";
   for(var i=0;i<x.s;i++){var o=st.sets[sk(view,ei,i)]||{};
    h+='<div class="setrow"><span class="slab">SET '+(i+1)+'</span><span class="fld"><input inputmode="decimal" data-f="w" data-s="'+i+'" placeholder="lbs" value="'+esc(o.w||"")+'"><u>LBS</u></span><span class="fld"><input inputmode="numeric" data-f="r" data-s="'+i+'" placeholder="reps" value="'+esc(o.r||"")+'"><u>REPS</u></span><button class="chk'+(o.k?" on":"")+'" data-act="chk" data-s="'+i+'">&#10003;</button></div>'}
   h+='<div class="acts">';
-  h+=vurl?'<button class="btn p" data-act="play">&#9654; Watch video</button><button class="btn g" data-act="vid">Edit link</button>':'<button class="btn" data-act="vid">+ Add video link</button>';
-  h+='<a class="btn g" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent("ATG "+x.n+" tutorial")+'">YouTube tutorial</a>';
+  if(vurl)h+='<button class="btn p" data-act="play">&#9654; Watch video</button><button class="btn g" data-act="vid">Edit link</button>';
+  else if(VAULT)h+='<button class="btn" data-act="unlock">&#128274; Unlock videos</button>';
+  else h+='<button class="btn" data-act="vid">+ Add video link</button>';
+  h+='<a class="btn g" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent("ATG "+x.n+" tutorial")+'">YouTube</a>';
   h+="</div>";
   h+='<textarea class="jn" data-act="note" placeholder="Your notes for this exercise...">'+esc(st.notes[x.n]||"")+"</textarea>";
   h+="</div></div>"});
  E("#app").innerHTML=h}
 function renderLog(){var h='<h2 class="dayt">Workout log</h2>';
- if(!st.hist.length){h+='<div class="empty">No sessions logged yet.<br>Finish a workout to save it here.</div>'}
- else{st.hist.slice().reverse().forEach(function(r,i){h+='<div class="logrow"><b>'+esc(r.day)+"</b><div>"+esc(r.date)+" &middot; "+r.n+" of "+r.t+" sets"+(r.vol?" &middot; "+r.vol+" lbs volume":"")+"</div></div>"})}
+ if(!st.hist.length)h+='<div class="empty">No sessions logged yet.<br>Finish a workout to save it here.</div>';
+ else st.hist.slice().reverse().forEach(function(r){h+='<div class="logrow"><b>'+esc(r.day)+"</b><div>"+esc(r.date)+" &middot; "+r.n+" of "+r.t+" sets"+(r.vol?" &middot; "+r.vol+" lbs volume":"")+"</div></div>"});
  E("#app").innerHTML=h}
 document.addEventListener("click",function(e){
  var tb=e.target.closest(".tab");if(tb){view=+tb.dataset.v;render();window.scrollTo(0,0);return}
- var ex=e.target.closest(".ex");if(!ex)return;var ei=+ex.dataset.ei,x=DAYS[view].ex[ei];
- var a=e.target.closest("[data-act]");if(!a)return;var act=a.dataset.act;
+ var ex=e.target.closest(".ex");if(!ex)return;
+ var a=e.target.closest("[data-act]");if(!a)return;
+ var ei=+ex.dataset.ei,x=DAYS[view].ex[ei],act=a.dataset.act;
  if(act==="tog"){st.open[view+"."+ei]=!st.open[view+"."+ei];save();render()}
- else if(act==="chk"){var k=sk(view,ei,+a.dataset.s);var o=st.sets[k]||{};o.k=!o.k;st.sets[k]=o;save();render();if(o.k)startRest(90)}
- else if(act==="vid"){var cur=st.vid[x.n]||"";var v=window.prompt("Video URL for "+x.n+"\n(.m3u8, .mp4 or any direct link). Stored only on this device.",cur);if(v!==null){v=v.trim();if(v)st.vid[x.n]=v;else delete st.vid[x.n];save();render()}}
- else if(act==="play"){playVid(x.n,st.vid[x.n])}
+ else if(act==="chk"){var k=sk(view,ei,+a.dataset.s),o=st.sets[k]||{};o.k=!o.k;st.sets[k]=o;save();render();if(o.k)startRest(90)}
+ else if(act==="unlock"){showLock()}
+ else if(act==="vid"){var v=window.prompt("Video URL for "+x.n,VIDS[x.n]||"");if(v!==null){v=v.trim();if(v){VIDS[x.n]=v;st.vid[x.n]=v}else{delete VIDS[x.n];delete st.vid[x.n]}save();render()}}
+ else if(act==="play"){playVid(x.n,VIDS[x.n])}
 });
 document.addEventListener("input",function(e){
- var t=e.target;var ex=t.closest(".ex");if(!ex)return;var ei=+ex.dataset.ei,x=DAYS[view].ex[ei];
- if(t.dataset.f){var k=sk(view,ei,+t.dataset.s);var o=st.sets[k]||{};o[t.dataset.f]=t.value;st.sets[k]=o;save()}
+ var t=e.target,ex=t.closest(".ex");if(!ex)return;var ei=+ex.dataset.ei,x=DAYS[view].ex[ei];
+ if(t.dataset.f){var k=sk(view,ei,+t.dataset.s),o=st.sets[k]||{};o[t.dataset.f]=t.value;st.sets[k]=o;save()}
  else if(t.dataset.act==="note"){st.notes[x.n]=t.value;save()}
 });
 var hls=null;
-function playVid(title,url){
- if(hls){try{hls.destroy()}catch(e){}hls=null}
- E("#dtitle").textContent=title;
- E("#dbody").innerHTML='<video id="vp" controls playsinline autoplay></video><div class="hint" style="margin-top:8px;word-break:break-all">'+esc(url)+"</div>";
+function killHls(){if(hls){try{hls.destroy()}catch(e){}hls=null}}
+function playVid(title,url){killHls();E("#dtitle").textContent=title;
+ E("#dbody").innerHTML='<video id="vp" controls playsinline autoplay></video>';
  var v=E("#vp");
  if(/\.m3u8/i.test(url)){
-  if(v.canPlayType("application/vnd.apple.mpegurl")){v.src=url}
+  if(v.canPlayType("application/vnd.apple.mpegurl"))v.src=url;
   else if(window.Hls&&window.Hls.isSupported()){hls=new window.Hls();hls.attachMedia(v);hls.loadSource(url)}
-  else{v.src=url}
- } else {v.src=url}
+  else v.src=url}
+ else v.src=url;
  E("#dlg").showModal()}
-function openModal(title,html){if(hls){try{hls.destroy()}catch(e){}hls=null}E("#dtitle").textContent=title;E("#dbody").innerHTML=html;E("#dlg").showModal()}
-E("#dclose").onclick=function(){var v=E("#vp");if(v){try{v.pause()}catch(e){}}if(hls){try{hls.destroy()}catch(e){}hls=null}E("#dlg").close()};
-E("#dlg").addEventListener("close",function(){E("#dbody").innerHTML=""});
+function openModal(title,html){killHls();E("#dtitle").textContent=title;E("#dbody").innerHTML=html;E("#dlg").showModal()}
+E("#dclose").onclick=function(){var v=E("#vp");if(v){try{v.pause()}catch(e){}}killHls();E("#dlg").close()};
+E("#dlg").addEventListener("close",function(){killHls();E("#dbody").innerHTML=""});
+function showLock(){E("#lock").classList.add("show");E("#lerr").textContent="";setTimeout(function(){E("#pw").focus()},120)}
+function hideLock(){E("#lock").classList.remove("show");E("#pw").value=""}
+E("#skip").onclick=hideLock;
+E("#pw").addEventListener("keydown",function(e){if(e.key==="Enter")E("#dounlock").click()});
+E("#dounlock").onclick=async function(){
+ var p=E("#pw").value;if(!p||!VAULT)return;
+ E("#lerr").textContent="Unlocking...";
+ try{var m=await decV(VAULT,p);VIDS=Object.assign(VIDS,m);
+  if(E("#rem").checked){st.vid=Object.assign(st.vid,m);save()}
+  hideLock();render()}
+ catch(err){E("#lerr").textContent="Wrong passphrase."}};
+E("#lockbtn").onclick=function(){
+ if(unlocked()){if(confirm("Forget the video links on this device?")){VIDS={};st.vid={};save();render();if(VAULT)showLock()}}
+ else if(VAULT)showLock();
+ else alert("No vault found. Add links manually, then create a vault from the settings menu.")};
 var rt=0,ri=null;
-function fmt(s){var m=Math.floor(s/60);return m+":"+String(s%60).padStart(2,"0")}
-function startRest(s){rt=s;E("#tdisp").textContent=fmt(rt);if(ri)clearInterval(ri);ri=setInterval(function(){rt--;E("#tdisp").textContent=fmt(Math.max(0,rt));if(rt<=0){clearInterval(ri);ri=null;beep()}},1000)}
-function beep(){try{var C=window.AudioContext||window.webkitAudioContext;var c=new C();var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.15;o.start();setTimeout(function(){o.stop();c.close()},450)}catch(e){}}
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function startRest(s){rt=s;E("#tdisp").textContent=fmt(rt);if(ri)clearInterval(ri);
+ ri=setInterval(function(){rt--;E("#tdisp").textContent=fmt(Math.max(0,rt));if(rt<=0){clearInterval(ri);ri=null;beep()}},1000)}
+function beep(){try{var C=window.AudioContext||window.webkitAudioContext,c=new C(),o=c.createOscillator(),g=c.createGain();
+ o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.15;o.start();
+ setTimeout(function(){o.stop();c.close()},450)}catch(e){}
+ if(navigator.vibrate)navigator.vibrate([180,90,180])}
 Array.prototype.forEach.call(document.querySelectorAll("[data-rest]"),function(b){b.onclick=function(){startRest(+b.dataset.rest)}});
 E("#tstop").onclick=function(){if(ri)clearInterval(ri);ri=null;rt=0;E("#tdisp").textContent="0:00"};
 E("#finish").onclick=function(){
  if(view===3){alert("Switch to a workout day first.");return}
  var s=dayStats(view);if(!s.n){alert("No sets completed yet.");return}
- var vol=0;DAYS[view].ex.forEach(function(x,ei){for(var i=0;i<x.s;i++){var o=st.sets[sk(view,ei,i)];if(o&&o.k){var w=parseFloat(o.w||0)||0,r=parseFloat(o.r||0)||0;vol+=w*r}}});
+ var vol=0;DAYS[view].ex.forEach(function(x,ei){for(var i=0;i<x.s;i++){var o=st.sets[sk(view,ei,i)];
+  if(o&&o.k)vol+=(parseFloat(o.w||0)||0)*(parseFloat(o.r||0)||0)}});
  if(!confirm("Save this session to your log and clear the checkmarks?"))return;
  st.hist.push({date:new Date().toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}),day:DAYS[view].n+" ("+DAYS[view].d+")",n:s.n,t:s.t,vol:Math.round(vol)||0});
  DAYS[view].ex.forEach(function(x,ei){for(var i=0;i<x.s;i++){var k=sk(view,ei,i);if(st.sets[k])st.sets[k].k=false}});
- save();render();alert("Session saved.")};
+ save();render()};
 E("#gear").onclick=function(){
- openModal("Settings",'<div class="hint">Video links, notes and logs are stored only in this browser (localStorage). Nothing is uploaded anywhere.</div>'+
- '<textarea class="jn" id="io" style="min-height:150px;font-family:ui-monospace,Menlo,monospace;font-size:12px"></textarea>'+
- '<div class="acts"><button class="btn" id="bex">Export data</button><button class="btn p" id="bim">Import / merge</button><button class="btn g" id="brs">Reset everything</button></div>'+
- '<div class="hint" style="margin-top:10px">Tip: paste a map of video links like <code>{"ATG Row":"https://...m3u8"}</code> and press Import.</div>');
- E("#bex").onclick=function(){E("#io").value=JSON.stringify(st,null,1)};
+ openModal("Settings",
+ '<div class="hint">Sets, notes and history stay in this browser only. Video links live in an encrypted vault file that travels with the site, so any device can unlock them with your passphrase.</div>'+
+ '<label class="lb">VIDEO LINKS (JSON)</label>'+
+ '<textarea class="jn" id="vj" style="min-height:120px;font-family:ui-monospace,Menlo,monospace;font-size:12px"></textarea>'+
+ '<label class="lb">PASSPHRASE</label><input class="tf" id="p1" type="password" autocomplete="new-password" placeholder="Choose a strong passphrase">'+
+ '<label class="lb">CONFIRM</label><input class="tf" id="p2" type="password" autocomplete="new-password" placeholder="Type it again">'+
+ '<div class="acts"><button class="btn p w" id="benc">Encrypt into vault.json</button></div>'+
+ '<textarea class="jn" id="vo" readonly placeholder="The encrypted blob appears here" style="min-height:96px;font-family:ui-monospace,Menlo,monospace;font-size:11px"></textarea>'+
+ '<div class="acts"><button class="btn" id="bcopy">Copy vault</button><button class="btn" id="bdl">Download vault.json</button></div>'+
+ '<div class="hint">Commit that output as <code>vault.json</code> in the repo root. Without the passphrase it is unreadable.</div>'+
+ '<label class="lb">BACKUP</label>'+
+ '<textarea class="jn" id="io" style="min-height:80px;font-family:ui-monospace,Menlo,monospace;font-size:11px"></textarea>'+
+ '<div class="acts"><button class="btn" id="bex">Export</button><button class="btn" id="bim">Import</button><button class="btn g" id="brs">Reset device</button></div>');
+ E("#vj").value=JSON.stringify(Object.assign({},st.vid,VIDS),null,1);
+ E("#benc").onclick=async function(){
+  var p=E("#p1").value,p2=E("#p2").value;
+  if(!p||p.length<8){alert("Use a passphrase of at least 8 characters.");return}
+  if(p!==p2){alert("The two passphrases do not match.");return}
+  var obj;try{obj=JSON.parse(E("#vj").value)}catch(e){alert("The video links box is not valid JSON.");return}
+  E("#benc").textContent="Encrypting...";
+  var out=await encV(obj,p);
+  E("#vo").value=JSON.stringify(out);
+  E("#benc").textContent="Encrypt into vault.json";
+  E("#p1").value="";E("#p2").value=""};
+ E("#bcopy").onclick=function(){var t=E("#vo");t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand("copy")}E("#bcopy").textContent="Copied"};
+ E("#bdl").onclick=function(){var b=new Blob([E("#vo").value],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="vault.json";a.click();URL.revokeObjectURL(u)};
+ E("#bex").onclick=function(){E("#io").value=JSON.stringify(st)};
  E("#bim").onclick=function(){try{var o=JSON.parse(E("#io").value);
   if(o.sets||o.vid||o.notes||o.hist){st.sets=Object.assign(st.sets,o.sets||{});st.vid=Object.assign(st.vid,o.vid||{});st.notes=Object.assign(st.notes,o.notes||{});if(o.hist&&o.hist.length)st.hist=o.hist}
-  else{st.vid=Object.assign(st.vid,o)}
-  save();render();alert("Imported.");E("#dlg").close()}catch(err){alert("That is not valid JSON.")}};
- E("#brs").onclick=function(){if(confirm("Erase all logged sets, notes, videos and history?")){localStorage.removeItem(KEY);location.reload()}}};
-render();
+  else st.vid=Object.assign(st.vid,o);
+  VIDS=Object.assign(VIDS,st.vid);save();render();E("#dlg").close()}catch(err){alert("That is not valid JSON.")}};
+ E("#brs").onclick=function(){if(confirm("Erase all sets, notes, videos and history on this device?")){localStorage.removeItem(KEY);location.reload()}}};
+(async function boot(){
+ VIDS=Object.assign({},st.vid);
+ render();
+ try{var r=await fetch("vault.json",{cache:"no-store"});if(r.ok)VAULT=await r.json()}catch(e){}
+ render();
+ if(VAULT&&!unlocked())showLock();
+})();
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
 })();
 </script>
 </body>
