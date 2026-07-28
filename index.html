@@ -196,7 +196,7 @@ function playVid(title,url){
  var v=E("#vp");
  if(/\.m3u8/i.test(url)){
   if(v.canPlayType("application/vnd.apple.mpegurl")){v.src=url}
-  else if(window.Hls&&window.Hls.isSupported()){hls=new window.Hls();hls.loadSource(url);hls.attachMedia(v)}
+  else if(window.Hls&&window.Hls.isSupported()){hls=new window.Hls();hls.attachMedia(v);hls.loadSource(url)}
   else{v.src=url}
  } else {v.src=url}
  E("#dlg").showModal()}
